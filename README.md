@@ -1,4 +1,4 @@
-<h2 align="center">@cytex/klara-js</h3>
+<h2 align="center">klara-js</h3>
 <p align="center">
     Retrieve and manage your ePost/Klara snail mail with ease.
 </p>
@@ -71,6 +71,7 @@ Please make sure you have installed the following tools:
 
 - [Node.js](https://nodejs.org/en/) - JavaScript runtime environment
 - [TypeScript](https://www.typescriptlang.org/) - Typescript compiler
+- A [epost.ch](https://www.epost.ch) account whose address is verified and has enabled Scanning Services.
 
 And a package manager of your choice:
 
@@ -84,13 +85,13 @@ And a package manager of your choice:
 Install the package via npm:
 
 ```bash
-npm install @cytex/klara-js --save
+npm install klara-js --save
 ```
 
 or via yarn:
 
 ```bash
-yarn add @cytex/klara-js
+yarn add klara-js
 ```
 
 ## 🎈 Usage
@@ -100,13 +101,13 @@ yarn add @cytex/klara-js
 ### Basic usage
 
 ```typescript
-import { Klara } from '@cytex/klara-js';
+import { Klara } from 'klara-js';
 
 // Create a new instance
 const klara = new Klara('username', 'password');
 
 // Fetch tenants (optional, defaults to first tenant)
-const tenants = await klara.user.getTenants();
+const tenants = await klara.user.tenants();
 klara.use(tenants[0]);
 
 // Login
