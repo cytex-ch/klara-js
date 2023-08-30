@@ -24,24 +24,20 @@ export class LetterboxApi extends BaseApi {
   async find(
     params: GetLettersQueryParams = {}
   ): Promise<GetLettersResponseDto> {
+    const transFormedParams =
+      GetLettersQueryParams.validateAndTransform(params);
+
     /**
      * @constant {AxiosResponse<GetLettersResponseDto>} response - The response from the API
      */
-    const response = await axios
-      .get<GetLettersResponseDto>(
-        this.url(
-          '/epost/v2/letters',
-          GetLettersQueryParams.validateAndTransform(params)
-        ),
-        {
-          headers: {
-            ...super.getAuthorizationHeader(),
-          },
-        }
-      )
-      .catch(e => {
-        throw new Error(e);
-      });
+    const response = await axios.get<GetLettersResponseDto>(
+      this.url('/epost/v2/letters', transFormedParams),
+      {
+        headers: {
+          ...super.getAuthorizationHeader(),
+        },
+      }
+    );
 
     return response.data;
   }
@@ -58,15 +54,14 @@ export class LetterboxApi extends BaseApi {
     /**
      * @constant {AxiosResponse<GetLetterResponseDto>} response - The response from the API
      */
-    const response = await axios
-      .get<GetLetterResponseDto>(this.url('/epost/v2/letters/:id', {}, {id}), {
+    const response = await axios.get<GetLetterResponseDto>(
+      this.url('/epost/v2/letters/:id', {}, {id}),
+      {
         headers: {
           ...super.getAuthorizationHeader(),
         },
-      })
-      .catch(e => {
-        throw new Error(e);
-      });
+      }
+    );
 
     return response.data;
   }
@@ -79,32 +74,31 @@ export class LetterboxApi extends BaseApi {
    * @returns {Promise<void>} - The letter
    * @throws {Error} - If the letter could not be found
    */
+  /* istanbul ignore next */
   async delete(id: string): Promise<void> {
-    const response = await axios
-      .delete<void>(this.url('/epost/v2/letters/:id', {}, {id}), {
+    const response = await axios.delete<void>(
+      this.url('/epost/v2/letters/:id', {}, {id}),
+      {
         headers: {
           ...super.getAuthorizationHeader(),
         },
-      })
-      .catch(e => {
-        throw new Error(e);
-      });
+      }
+    );
 
     return response.data;
   }
 
   async getContent(id: string): Promise<Buffer> {
-    const response = await axios
-      .get(this.url('/epost/v2/letters/:id/content', {}, {id}), {
+    const response = await axios.get(
+      this.url('/epost/v2/letters/:id/content', {}, {id}),
+      {
         headers: {
           ...super.getAuthorizationHeader(),
           Accept: 'application/octet-stream',
         },
         responseType: 'arraybuffer',
-      })
-      .catch(e => {
-        throw new Error(e);
-      });
+      }
+    );
 
     return response.data;
   }

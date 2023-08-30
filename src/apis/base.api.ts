@@ -87,14 +87,16 @@ export class BaseApi {
     Method extends 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
   >(
     path: string,
-    method: Method = 'GET' as Method,
-    queryParams: QueryParams = {} as QueryParams,
-    pathParams: PathParams = {} as PathParams,
-    data: Payload = {} as Payload
+    method?: Method,
+    queryParams?: QueryParams,
+    pathParams?: PathParams,
+    data?: Payload
   ): Promise<Result> {
     const headers = this.getAuthorizationHeader();
 
     const params = queryParams;
+
+    /* istanbul ignore next */
     const paramsSerializer = (params: QueryParams) => {
       return Object.entries(params as {})
         .map(([key, value]) => `${key}=${value}`)
@@ -104,17 +106,12 @@ export class BaseApi {
     const response = await axios
       .request<Payload, AxiosResponse<Result>>({
         url: this.url(path, queryParams, pathParams),
-        method,
+        method: method ?? 'GET',
         headers,
-        params,
-        paramsSerializer: paramsSerializer as CustomParamsSerializer,
         data,
+        ...((params && {params, paramsSerializer}) as Record<string, unknown>),
       })
-      .then(response => response.data)
-      .catch(e => {
-        console.error(JSON.stringify(e['response']['data'], null, 2));
-        throw new Error('Not Found');
-      });
+      .then(response => response.data);
 
     return response;
   }

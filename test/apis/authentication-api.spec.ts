@@ -6,7 +6,7 @@ const {username, password, tenant_id} = config;
 jest.setTimeout(30000);
 
 describe('AuthenticationApi', () => {
-  const api = new AuthenticationApi(null, null, null);
+  const api = new AuthenticationApi(username, password, tenant_id);
 
   it('should return a list of tenants', async () => {
     const response = await api.tenants();

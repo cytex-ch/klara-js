@@ -1,4 +1,5 @@
 import path = require('path');
+import axios from 'axios';
 import {randomUUID} from 'crypto';
 import {existsSync, mkdirSync, rmSync} from 'fs';
 import {AuthenticationApi} from '../../src/apis/auth.api';
@@ -61,6 +62,182 @@ describe('ePost API', () => {
     const exists = existsSync(tmpFile);
 
     expect(exists).toBe(true);
+  });
+
+  describe('it should set proper query params', () => {
+    it('can find letters without parameters', async () => {
+      // mock axios get
+      axios.get = jest.fn().mockImplementation(async (url: string) => {
+        expect(url).toBe(
+          'https://api.klara.ch/epost/v2/letters?letter-folder=INBOX_FOLDER'
+        );
+
+        return Promise.resolve({data: []});
+      });
+
+      await letterbox.find();
+    });
+
+    it('can find letters with limit parameter', async () => {
+      // mock axios get
+      axios.get = jest.fn().mockImplementation(async (url: string) => {
+        // url has to contain either limit=0 or limit=1
+        expect(url).toMatch(/limit=(0|1)/);
+
+        return Promise.resolve({data: []});
+      });
+      await letterbox.find({
+        limit: 1,
+      });
+
+      await expect(letterbox.find({limit: 1000})).rejects.toThrowError(
+        /The limit can not be greater than 100./
+      );
+
+      await expect(letterbox.find({limit: -20})).rejects.toThrowError(
+        /The limit can not be less than 1./
+      );
+    });
+
+    it('can find letters with offset parameter', async () => {
+      // mock axios get
+      axios.get = jest.fn().mockImplementation(async (url: string) => {
+        expect(url).toBe(
+          'https://api.klara.ch/epost/v2/letters?offset=1&letter-folder=INBOX_FOLDER'
+        );
+
+        return Promise.resolve({data: []});
+      });
+
+      await letterbox.find({
+        offset: 1,
+      });
+
+      await expect(letterbox.find({offset: -1})).rejects.toThrowError(
+        /The offset can not be less than 0./
+      );
+    });
+
+    it('should use the default folder parameter', async () => {
+      // mock axios get
+      axios.get = jest.fn().mockImplementation(async url => {
+        expect(url).toBe(
+          'https://api.klara.ch/epost/v2/letters?letter-folder=INBOX_FOLDER'
+        );
+
+        return Promise.resolve({data: []});
+      });
+
+      await letterbox.find({});
+    });
+
+    it('can find letters with letter folder parameter', async () => {
+      // mock axios get
+      axios.get = jest.fn().mockImplementation(async url => {
+        expect(url).toBe(
+          'https://api.klara.ch/epost/v2/letters?letter-folder=SENT_FOLDER'
+        );
+
+        return Promise.resolve({data: []});
+      });
+
+      await letterbox.find({
+        'letter-folder': 'SENT_FOLDER',
+      });
+    });
+
+    it('can find letters with senderCaseId parameter', async () => {
+      // mock axios get
+      axios.get = jest.fn().mockImplementation(async url => {
+        expect(url).toBe(
+          'https://api.klara.ch/epost/v2/letters?senderCaseId=foobar&letter-folder=INBOX_FOLDER'
+        );
+
+        return Promise.resolve({data: []});
+      });
+
+      await letterbox.find({
+        senderCaseId: 'foobar',
+      });
+    });
+
+    it('can find letters with senderEndToEndId parameter', async () => {
+      // mock axios get
+      axios.get = jest.fn().mockImplementation(async url => {
+        expect(url).toBe(
+          'https://api.klara.ch/epost/v2/letters?senderEndToEndId=foobar&letter-folder=INBOX_FOLDER'
+        );
+
+        return Promise.resolve({data: []});
+      });
+
+      await letterbox.find({
+        senderEndToEndId: 'foobar',
+      });
+    });
+
+    it('can find letters with senderUserId parameter', async () => {
+      // mock axios get
+      axios.get = jest.fn().mockImplementation(async url => {
+        expect(url).toBe(
+          'https://api.klara.ch/epost/v2/letters?senderUserId=foobar&letter-folder=INBOX_FOLDER'
+        );
+
+        return Promise.resolve({data: []});
+      });
+
+      await letterbox.find({
+        senderUserId: 'foobar',
+      });
+    });
+
+    it('can find letters with senderParticipantId parameter', async () => {
+      // mock axios get
+      axios.get = jest.fn().mockImplementation(async url => {
+        expect(url).toBe(
+          'https://api.klara.ch/epost/v2/letters?senderParticipantId=foobar&letter-folder=INBOX_FOLDER'
+        );
+
+        return Promise.resolve({data: []});
+      });
+
+      await letterbox.find({
+        senderParticipantId: 'foobar',
+      });
+    });
+
+    it('can find letters with date range parameter', async () => {
+      // mock axios get
+      axios.get = jest.fn().mockImplementation(async (url: string) => {
+        expect(url).toBe(
+          'https://api.klara.ch/epost/v2/letters?from-date=2020-01-01&to-date=2020-01-02&letter-folder=INBOX_FOLDER'
+        );
+
+        return Promise.resolve({data: []});
+      });
+
+      await letterbox.find({
+        'from-date': '2020-01-01',
+        'to-date': '2020-01-02',
+      });
+
+      await letterbox.find({
+        'from-date': new Date('2020-01-01'),
+        'to-date': new Date('2020-01-02'),
+      });
+
+      await expect(
+        letterbox.find({
+          'from-date': 'foobar',
+        })
+      ).rejects.toThrowError();
+
+      await expect(
+        letterbox.find({
+          'to-date': 'foobar',
+        })
+      ).rejects.toThrowError();
+    });
   });
 
   /**

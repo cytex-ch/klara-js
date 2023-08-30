@@ -7,6 +7,7 @@ if (
     process.env.KLARA_PASSWORD
   )
 ) {
+  // istanbul ignore next
   throw new Error('Missing environment variables');
 }
 

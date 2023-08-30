@@ -25,10 +25,9 @@ export class GetLettersQueryParams {
    * @property {'INBOX_FOLDER' | 'SENT_FOLDER'} letter-folder
    * @memberof GetLettersQueryParams
    * @public
-   * @default 'INBOX_FOLDER'
    * @optional
    */
-  public 'letter-folder'?: 'INBOX_FOLDER' | 'SENT_FOLDER' = 'INBOX_FOLDER';
+  public 'letter-folder'?: 'INBOX_FOLDER' | 'SENT_FOLDER';
 
   /**
    * The type of letters to get
@@ -36,7 +35,6 @@ export class GetLettersQueryParams {
    * @property {'CLASSIC_LETTER' | 'SMART_LETTER' | 'SMART_LETTER_ANSWER' | 'SIMPLE_SHORT_MESSAGE' | 'INCAMAIL'} letter-types
    * @memberof GetLettersQueryParams
    * @public
-   * @default 'CLASSIC_LETTER'
    * @optional
    */
   public 'letter-types'?:
@@ -44,7 +42,7 @@ export class GetLettersQueryParams {
     | 'SMART_LETTER'
     | 'SMART_LETTER_ANSWER'
     | 'SIMPLE_SHORT_MESSAGE'
-    | 'INCAMAIL' = 'CLASSIC_LETTER';
+    | 'INCAMAIL';
 
   /**
    * The limit of letters to get
@@ -71,7 +69,7 @@ export class GetLettersQueryParams {
   /**
    * The case id of the sender
    *
-   * @property {'ASC' | 'DESC'} sort-order
+   * @property {string} sender-case-id
    *  @memberof GetLettersQueryParams
    * @public
    * @optional
@@ -81,7 +79,7 @@ export class GetLettersQueryParams {
   /**
    * The end to end id of the sender
    *
-   * @property {'ASC' | 'DESC'} sender-end-to-end-id
+   * @property {string} sender-end-to-end-id
    * @memberof GetLettersQueryParams
    * @public
    * @optional
@@ -145,8 +143,16 @@ export class GetLettersQueryParams {
       throw new Error('The limit can not be greater than 100.');
     }
 
+    if (params.limit && parseInt(params.limit!.toString()) < 1) {
+      throw new Error('The limit can not be less than 1.');
+    }
+
     if (params.offset && params.offset < 0) {
       throw new Error('The offset can not be less than 0.');
+    }
+
+    if (!params['letter-folder']) {
+      params['letter-folder'] = 'INBOX_FOLDER';
     }
 
     return params;

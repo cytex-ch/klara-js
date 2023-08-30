@@ -11,7 +11,7 @@ export class AuthenticationApi extends BaseApi {
   constructor(
     private readonly username: string | null,
     private readonly password: string | null,
-    private tenant_id?: string | null
+    private tenant_id: string | null
   ) {
     super(username as string, password as string);
   }
@@ -22,6 +22,10 @@ export class AuthenticationApi extends BaseApi {
     } else {
       this.tenant_id = tenant.tenant_id;
     }
+  }
+
+  public get tenantId(): string | null {
+    return this.tenant_id;
   }
 
   async selectTenant(tenant_id: string, company_id: string) {
@@ -84,23 +88,18 @@ export class AuthenticationApi extends BaseApi {
     /**
      * @constant {AxiosResponse<GetTenantsResponseDto>} response - The response from the API
      */
-    const response = await axios
-      .post<GetTenantsResponseDto>(
-        this.url('/core/latest/tenants'),
-        {
-          username: this.username,
-          password: this.password,
+    const response = await axios.post<GetTenantsResponseDto>(
+      this.url('/core/latest/tenants'),
+      {
+        username: this.username,
+        password: this.password,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        }
-      )
-      .catch(e => {
-        console.log(e);
-        throw new Error(e);
-      });
+      }
+    );
 
     return response.data;
   }
@@ -136,15 +135,15 @@ export class AuthenticationApi extends BaseApi {
     /**
      * @constant {AxiosResponse<GetTokenResponseDto>} response - The response from the API
      */
-    const response = await axios
-      .post<GetTokenResponseDto>(this.url('/core/latest/token'), data, {
+    const response = await axios.post<GetTokenResponseDto>(
+      this.url('/core/latest/token'),
+      data,
+      {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      })
-      .catch(e => {
-        throw new Error(e);
-      });
+      }
+    );
 
     super.setAccessToken(response.data.access_token);
 

@@ -36,7 +36,8 @@ export default class Klara {
   public init(): void {
     this.authenticationApi = new AuthenticationApi(
       this.username,
-      this.password
+      this.password,
+      null
     );
     this.letterboxApi = new LetterboxApi();
   }
@@ -47,11 +48,7 @@ export default class Klara {
    * @param tenant - The tenant to use.
    */
   public use(tenant: {tenant_id: string; company_id: string} | string) {
-    if (typeof tenant === 'string') {
-      this.authenticationApi?.use(tenant);
-    } else {
-      this.authenticationApi?.use(tenant);
-    }
+    this.authenticationApi?.use(tenant);
   }
 
   /**
