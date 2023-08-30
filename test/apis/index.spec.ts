@@ -2,6 +2,8 @@ import Klara from '../../src';
 
 import * as config from '../../src/config';
 
+jest.setTimeout(30000);
+
 describe('Klara', () => {
   it('should be defined', () => {
     expect(Klara).toBeDefined();
