@@ -7,7 +7,7 @@
 
 <div align="center">
 
-[![Node.js CI](https://github.com/cytex-media-solutions/klara-js/actions/workflows/node.js.yml/badge.svg)](https://github.com/cytex-media-solutions/klara-js/actions/workflows/build-and-test.yml)
+[![Build, Lint and Test](https://github.com/cytex-media-solutions/klara-js/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/cytex-media-solutions/klara-js/actions/workflows/build-and-test.yml)
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
 ![GitHub issues](https://img.shields.io/github/issues/cytex-media-solutions/klara-js)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/cytex-media-solutions/klara-js)
