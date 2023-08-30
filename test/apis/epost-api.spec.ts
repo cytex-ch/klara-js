@@ -23,8 +23,8 @@ describe('ePost API', () => {
       mkdirSync(tmpDir);
     }
 
-    const letters = await letterbox.getLetters({});
-    letter = await letterbox.getLetter(letters[0].id);
+    const letters = await letterbox.find({});
+    letter = await letterbox.findOne(letters[0].id);
   });
 
   afterAll(async () => {
@@ -34,21 +34,21 @@ describe('ePost API', () => {
   });
 
   it('can get letters', async () => {
-    const letters = await letterbox.getLetters({});
+    const letters = await letterbox.find({});
 
     expect(letters).toBeDefined();
     expect(letters.length).toBeGreaterThan(0);
   });
 
   it('can get one letter', async () => {
-    const foundLetter = await letterbox.getLetter(letter!.id);
+    const foundLetter = await letterbox.findOne(letter!.id);
 
     expect(foundLetter).toBeDefined();
     expect(foundLetter.id).toBe(letter!.id);
   });
 
   it('can get buffer of one letter', async () => {
-    const buffer = await letterbox.getLetterContent(letter!.id);
+    const buffer = await letterbox.getContent(letter!.id);
 
     expect(buffer).toBeDefined();
     expect(buffer.length).toBeGreaterThan(0);
@@ -56,7 +56,7 @@ describe('ePost API', () => {
 
   it('can download one letter', async () => {
     const tmpFile = path.join(__dirname, '../../tmp/' + randomUUID() + '.pdf');
-    await letterbox.downloadLetter(letter!.id, tmpFile);
+    await letterbox.download(letter!.id, tmpFile);
 
     const exists = existsSync(tmpFile);
 

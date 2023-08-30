@@ -1,8 +1,5 @@
 import axios from 'axios';
-import {
-  GetTenantsRequestDto,
-  GetTenantsResponseDto,
-} from '../dtos/auth/get-tenants';
+import {GetTenantsResponseDto} from '../dtos/auth/get-tenants';
 import {GetTokenRequestDto, GetTokenResponseDto} from '../dtos/auth/get-token';
 import {BaseApi} from './base.api';
 
@@ -14,9 +11,17 @@ export class AuthenticationApi extends BaseApi {
   constructor(
     private readonly username: string | null,
     private readonly password: string | null,
-    private readonly tenant_id?: string | null
+    private tenant_id?: string | null
   ) {
-    super();
+    super(username as string, password as string);
+  }
+
+  use(tenant: {tenant_id: string; company_id: string} | string) {
+    if (typeof tenant === 'string') {
+      this.tenant_id = tenant;
+    } else {
+      this.tenant_id = tenant.tenant_id;
+    }
   }
 
   async selectTenant(tenant_id: string, company_id: string) {
@@ -44,10 +49,7 @@ export class AuthenticationApi extends BaseApi {
    * @throws {Error} - If the company could not be found
    */
   async login(): Promise<GetTokenResponseDto> {
-    return this.getTenants({
-      username: this.username as string,
-      password: this.password as string,
-    }).then(tenants => {
+    return this.tenants().then(tenants => {
       if (tenants.length === 0) {
         throw new Error('No tenants found');
       }
@@ -78,27 +80,23 @@ export class AuthenticationApi extends BaseApi {
    * @throws {Error} - If the tenant could not be found
    * @throws {Error} - If the company could not be found
    */
-  async getTenants({
-    username,
-    password,
-  }: GetTenantsRequestDto): Promise<GetTenantsResponseDto> {
-    /**
-     * @constant {Object} data - The data for the request
-     */
-    const data = {
-      username,
-      password,
-    };
-
+  async tenants(): Promise<GetTenantsResponseDto> {
     /**
      * @constant {AxiosResponse<GetTenantsResponseDto>} response - The response from the API
      */
     const response = await axios
-      .post<GetTenantsResponseDto>(this.url('/core/latest/tenants'), data, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+      .post<GetTenantsResponseDto>(
+        this.url('/core/latest/tenants'),
+        {
+          username: this.username,
+          password: this.password,
         },
-      })
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        }
+      )
       .catch(e => {
         console.log(e);
         throw new Error(e);

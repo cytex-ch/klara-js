@@ -10,6 +10,10 @@ import {writeFileSync} from 'fs';
  * @description API for authenticating clients
  */
 export class LetterboxApi extends BaseApi {
+  constructor() {
+    super();
+  }
+
   /**
    * Retrieves letters from the letterbox
    *
@@ -17,8 +21,8 @@ export class LetterboxApi extends BaseApi {
    * @param params {GetLettersQueryParams} - The query params for the request
    * @returns {Promise<GetLettersResponseDto>} - The letters
    */
-  async getLetters(
-    params: GetLettersQueryParams
+  async find(
+    params: GetLettersQueryParams = {}
   ): Promise<GetLettersResponseDto> {
     /**
      * @constant {AxiosResponse<GetLettersResponseDto>} response - The response from the API
@@ -50,7 +54,7 @@ export class LetterboxApi extends BaseApi {
    * @returns {Promise<GetLetterResponseDto>} - The letter
    * @throws {Error} - If the letter could not be found
    */
-  async getLetter(id: string): Promise<GetLetterResponseDto> {
+  async findOne(id: string): Promise<GetLetterResponseDto> {
     /**
      * @constant {AxiosResponse<GetLetterResponseDto>} response - The response from the API
      */
@@ -75,7 +79,7 @@ export class LetterboxApi extends BaseApi {
    * @returns {Promise<void>} - The letter
    * @throws {Error} - If the letter could not be found
    */
-  async deleteLetter(id: string): Promise<void> {
+  async delete(id: string): Promise<void> {
     const response = await axios
       .delete<void>(this.url('/epost/v2/letters/:id', {}, {id}), {
         headers: {
@@ -89,7 +93,7 @@ export class LetterboxApi extends BaseApi {
     return response.data;
   }
 
-  async getLetterContent(id: string): Promise<Buffer> {
+  async getContent(id: string): Promise<Buffer> {
     const response = await axios
       .get(this.url('/epost/v2/letters/:id/content', {}, {id}), {
         headers: {
@@ -105,8 +109,8 @@ export class LetterboxApi extends BaseApi {
     return response.data;
   }
 
-  async downloadLetter(id: string, path: string): Promise<void> {
-    const content = await this.getLetterContent(id);
+  async download(id: string, path: string): Promise<void> {
+    const content = await this.getContent(id);
     writeFileSync(path, content);
   }
 }

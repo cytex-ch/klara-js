@@ -9,10 +9,7 @@ describe('AuthenticationApi', () => {
   const api = new AuthenticationApi(null, null, null);
 
   it('should return a list of tenants', async () => {
-    const response = await api.getTenants({
-      username: username,
-      password: password,
-    });
+    const response = await api.tenants();
 
     expect(response.length).toBeGreaterThan(0);
     expect(response[0]).toHaveProperty('tenant_id');
@@ -20,20 +17,8 @@ describe('AuthenticationApi', () => {
     expect(response[0]).toHaveProperty('company_name');
   });
 
-  it('should throw an error if the credentials are invalid', async () => {
-    await expect(
-      api.getTenants({
-        username: username,
-        password: 'invalid',
-      })
-    ).rejects.toThrowError();
-  });
-
   it('can get token', async () => {
-    const tenants = await api.getTenants({
-      username: username,
-      password: password,
-    });
+    const tenants = await api.tenants();
 
     const response = await api.getToken({
       username: username,

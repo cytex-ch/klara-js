@@ -4,12 +4,21 @@
  */
 import axios, {AxiosResponse, CustomParamsSerializer} from 'axios';
 import {URL} from 'url';
-import {OrganisationNotFoundException} from '../exceptions/organisation-not-found.exception';
 
 export class BaseApi {
   private static readonly KLARA_BASEL_URL = 'https://api.klara.ch';
 
   private static accessToken: string | null = null;
+  private static username: string | null = null;
+  private static password: string | null = null;
+
+  constructor(username?: string, password?: string) {
+    if (username && password) {
+      BaseApi.username = username;
+      BaseApi.password = password;
+    }
+  }
+
   /**
    * @function getAuthorizationHeader
    * @description Returns the authorization header for API requests.
@@ -104,7 +113,7 @@ export class BaseApi {
       .then(response => response.data)
       .catch(e => {
         console.error(JSON.stringify(e['response']['data'], null, 2));
-        throw new OrganisationNotFoundException('Not Found');
+        throw new Error('Not Found');
       });
 
     return response;

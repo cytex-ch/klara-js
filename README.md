@@ -103,13 +103,10 @@ yarn add @cytex/klara-js
 import { Klara } from '@cytex/klara-js';
 
 // Create a new instance
-const klara = new Klara({
-    username: 'username',
-    password: 'password',
-});
+const klara = new Klara('username', 'password');
 
 // Fetch tenants (optional, defaults to first tenant)
-const tenants = await klara.user.tenants();
+const tenants = await klara.user.getTenants();
 klara.use(tenants[0]);
 
 // Login
