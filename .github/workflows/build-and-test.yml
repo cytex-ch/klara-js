@@ -8,12 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    env:
-        USERNAME: ${{ secrets.USERNAME }}
-        PASSWORD: ${{ secrets.PASSWORD }}
-        TENANT_ID: ${{ secrets.TENANT_ID }}
-
+    environment: Test
+    
     strategy:
       matrix:
         node-version: ["16.x"]
