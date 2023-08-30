@@ -44,6 +44,7 @@
     "eslint": "^8.48.0",
     "eslint-plugin-jest": "^27.2.3",
     "gts": "^5.0.1",
+    "ts-node": "10.9.1",
     "ts-jest": "^29.1.1",
     "typescript": "~5.1.6"
   }
