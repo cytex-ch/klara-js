@@ -1,6 +1,6 @@
 <h2 align="center">klara-js</h3>
 <p align="center">
-    Retrieve and manage your ePost/Klara snail mail with ease.
+    Retrieve and manage your ePost/klara snail mail with ease.
 </p>
 
 <br/>
