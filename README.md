@@ -101,7 +101,7 @@ yarn add klara-js
 ### Basic usage
 
 ```typescript
-import { Klara } from 'klara-js';
+import Klara from 'klara-js';
 
 // Create a new instance
 const klara = new Klara('username', 'password');
