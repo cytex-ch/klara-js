@@ -42,7 +42,11 @@
 
 <a name="about"></a>
 
-klara-js allows you to easily fetch physical snail mail from your ePost/Klara account. Additionally, you can also manage your snail mail by creating, updating and deleting it.
+<strong>klara-js</strong> allows you to easily fetch physical snail mail from your ePost/Klara account. Additionally, you can also manage your snail mail by creating, updating and deleting it.
+
+### ⚠️ Disclaimer
+
+This project is not affiliated with Swiss Post or Klara in any way. It is an unofficial API wrapper for the Klara API. Use at your own risk. We are not responsible for any damage caused by the use of this library.
 
 ## 🏁 Features
 
@@ -67,6 +71,11 @@ Please make sure you have installed the following tools:
 
 - [Node.js](https://nodejs.org/en/) - JavaScript runtime environment
 - [TypeScript](https://www.typescriptlang.org/) - Typescript compiler
+
+And a package manager of your choice:
+
+- [npm](https://www.npmjs.com/) - Node.js package manager
+- [yarn](https://yarnpkg.com/) - Node.js package manager
 
 ### Installing
 
