@@ -1,5 +1,7 @@
 import {AuthenticationApi} from '../../src/apis/auth.api';
-import {username, password, tenant_id} from '../../src/config';
+import * as config from '../../src/config';
+
+const {username, password, tenant_id} = config;
 
 jest.setTimeout(30000);
 

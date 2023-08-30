@@ -3,8 +3,10 @@ import {randomUUID} from 'crypto';
 import {existsSync, mkdirSync, rmSync} from 'fs';
 import {AuthenticationApi} from '../../src/apis/auth.api';
 import {LetterboxApi} from '../../src/apis/epost.api';
-import {password, tenant_id, username} from '../../src/config';
+import * as config from '../../src/config';
 import {GetLetterResponseDto} from '../../src/dtos/letterbox/get-letter';
+
+const {username, password, tenant_id} = config;
 
 jest.setTimeout(30000);
 
