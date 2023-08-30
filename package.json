@@ -1,0 +1,50 @@
+{
+  "name": "klara-js",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon dist/index.js --quiet --watch src/* --exec \"clear && ts-node src/index.ts\"",
+    "test": "jest --testPathIgnorePatterns \"build/\" --runInBand --verbose",
+    "coverage": "jest --coverage --testPathIgnorePatterns \"build/\" --runInBand --verbose",
+    "coverage-report": "open coverage/lcov-report/index.html",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "prepare": "npm run compile",
+    "pretest": "npm run compile",
+    "posttest": "npm run lint"
+  },
+  "keywords": [
+    "klara",
+    "api",
+    "typescript",
+    "javascript",
+    "nodejs"
+  ],
+  "author": "",
+  "license": "ISC",
+  "types": "./dist/index.d.ts",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.5.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-decorators": "^7.22.10",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/jest": "^29.5.4",
+    "@types/node": "20.4.6",
+    "eslint": "^8.48.0",
+    "eslint-plugin-jest": "^27.2.3",
+    "gts": "^5.0.1",
+    "ts-jest": "^29.1.1",
+    "typescript": "~5.1.6"
+  }
+}
