@@ -9,7 +9,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: Test
-    
+
+    env:
+        KLARA_USERNAME: ${{ secrets.KLARA_USERNAME }}
+        KLARA_PASSWORD: ${{ secrets.KLARA_PASSWORD }}
+        KLARA_TENANT_ID: ${{ secrets.KLARA_TENANT_ID }}
+
     strategy:
       matrix:
         node-version: ["16.x"]
