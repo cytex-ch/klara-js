@@ -93,12 +93,15 @@ yarn add @cytex/klara-js
 ```typescript
 import { Klara } from '@cytex/klara-js';
 
+// Create a new instance
 const klara = new Klara({
     username: 'username',
     password: 'password',
 });
 
-klara.use("your-tenant-id");
+// Fetch tenants (optional, defaults to first tenant)
+const tenants = await klara.user.tenants();
+klara.use(tenants[0]);
 
 // Login
 await klara.login();
@@ -133,6 +136,8 @@ npm run test
 
 - [TypeScript](https://www.typescriptlang.org/) - Programming language
 - [Jest](https://jestjs.io/) - Testing framework
+- [Prettier](https://prettier.io/) - Code formatter
+- [ESLint](https://eslint.org/) - Linter
 
 ## ✍️ Authors
 
