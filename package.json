@@ -1,33 +1,44 @@
 {
   "name": "klara-js",
-  "version": "1.0.0",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "dev": "nodemon dist/index.js --quiet --watch src/* --exec \"clear && ts-node src/index.ts\"",
-    "test": "jest --testPathIgnorePatterns \"build/\" --runInBand --verbose",
-    "coverage": "jest --coverage --testPathIgnorePatterns \"build/\" --runInBand --verbose",
-    "coverage-report": "open coverage/lcov-report/index.html",
-    "lint": "gts lint",
-    "clean": "gts clean",
-    "compile": "tsc",
-    "fix": "gts fix",
-    "prepare": "npm run compile",
-    "pretest": "npm run compile",
-    "posttest": "npm run lint"
-  },
+  "displayName": "@cytex/klara-js",
+  "version": "0.0.3",
+  "description": "Klara API Wrapper for NodeJS",
   "keywords": [
     "klara",
+    "epost.ch",
+    "epost",
+    "swiss-post",
     "api",
     "typescript",
     "javascript",
     "nodejs"
   ],
-  "author": "",
-  "license": "ISC",
-  "types": "./dist/index.d.ts",
-  "description": "",
+  "license": "MIT",
+  "author": "Cytex Media Solutions",
+  "maintainers": [
+    {
+      "name": "Simon Jutz",
+      "email": "simon.jutz@cytex.ch",
+      "url": "https://github.com/sjutz"
+    }
+  ],
+  "main": "build/src/index.js",
+  "types": "./build/src/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "coverage": "jest --coverage --testPathIgnorePatterns \"build/\" --runInBand --verbose",
+    "coverage-report": "open coverage/lcov-report/index.html",
+    "dev": "nodemon dist/index.js --quiet --watch src/* --exec \"clear && ts-node src/index.ts\"",
+    "fix": "gts fix",
+    "lint": "gts lint",
+    "prepare": "npm run compile",
+    "start": "node dist/index.js",
+    "pretest": "npm run compile",
+    "test": "jest --testPathIgnorePatterns \"build/\" --runInBand --verbose",
+    "posttest": "npm run lint"
+  },
   "dependencies": {
     "axios": "^1.5.0",
     "class-transformer": "^0.5.1",
@@ -44,8 +55,12 @@
     "eslint": "^8.48.0",
     "eslint-plugin-jest": "^27.2.3",
     "gts": "^5.0.1",
-    "ts-node": "10.9.1",
     "ts-jest": "^29.1.1",
+    "ts-node": "10.9.1",
     "typescript": "~5.1.6"
-  }
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "readme": "README.md"
 }
