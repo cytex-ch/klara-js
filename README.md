@@ -12,7 +12,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/cytex-media-solutions/klara-js)]()
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/cytex-media-solutions/klara-js)]()
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-[![codecov](https://codecov.io/gh/cytex-media-solutions/klara-js/graph/badge.svg?token=P7TXWCFFB5)](https://codecov.io/gh/cytex-media-solutions/klara-js)
+[![codecov](https://codecov.io/gh/cytex-ch/klara-js/graph/badge.svg?token=P7TXWCFFB5)](https://codecov.io/gh/cytex-ch/klara-js)
 
 </div>
 
