@@ -1,7 +1,7 @@
 {
   "name": "klara-js",
   "displayName": "@cytex/klara-js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Klara API Wrapper for NodeJS",
   "keywords": [
     "klara",
@@ -13,6 +13,10 @@
     "javascript",
     "nodejs"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cytex-ch/klara-js.git"
+  },
   "license": "MIT",
   "author": "Cytex Media Solutions",
   "maintainers": [
