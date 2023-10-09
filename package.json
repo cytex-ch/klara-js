@@ -30,11 +30,11 @@
     "compile": "tsc",
     "coverage": "jest --coverage --testPathIgnorePatterns \"build/\" --runInBand --verbose",
     "coverage-report": "open coverage/lcov-report/index.html",
-    "dev": "nodemon dist/index.js --quiet --watch src/* --exec \"clear && ts-node src/index.ts\"",
+    "dev": "nodemon build/index.js --quiet --watch src/* --exec \"clear && ts-node src/index.ts\"",
     "fix": "gts fix",
     "lint": "gts lint",
     "prepare": "npm run compile",
-    "start": "node dist/index.js",
+    "start": "node build/index.js",
     "pretest": "npm run compile",
     "test": "jest --testPathIgnorePatterns \"build/\" --runInBand --verbose",
     "posttest": "npm run lint"
